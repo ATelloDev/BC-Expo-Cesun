@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🩸 BloodCode - Login</title>
+    <link rel="stylesheet" href="login-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container test-users-hidden">
+        <!-- Botón para ocultar/mostrar ventana de usuarios de prueba -->
+        <button class="toggle-test-users" onclick="toggleTestUsers()" title="Mostrar Usuarios de Prueba">
+            <i class="fas fa-eye-slash"></i>
+        </button>
+
+        <!-- Ventana de Usuarios de Prueba (Independiente) -->
+        <div class="test-users-window hidden">
+            <div class="test-users-header">
+                <h3><i class="fas fa-users"></i> Usuarios de Prueba</h3>
+                <p>Acceso rápido para testing</p>
+            </div>
+            <div class="test-users-grid">
+                <div class="test-user">
+                    <strong>Admin:</strong><br>
+                    <span class="user-info">admin.new@test.com</span><br>
+                    <span class="password">123456</span>
+                </div>
+                <div class="test-user">
+                    <strong>Donador:</strong><br>
+                    <span class="user-info">juan.donor@test.com</span><br>
+                    <span class="password">123456</span>
+                </div>
+                <div class="test-user">
+                    <strong>Receptor:</strong><br>
+                    <span class="user-info">alejandro.tello.hdz@gmail.com</span><br>
+                    <span class="password">123456</span>
+                </div>
+            </div>
+            
+            <!-- Botón Tester debajo de usuarios de prueba -->
+            <div class="tester-section">
+                <button onclick="window.open('tester.html', '_blank')" class="btn-tester">
+                    <i class="fas fa-vial"></i> Abrir API Tester
+                </button>
+            </div>
+        </div>
+
+        <!-- Formulario de login -->
+        <div id="loginCard" class="login-card">
+            <div class="logo">
+                <h1>🩸 Login</h1>
+                <p>Inicia sesión en tu cuenta</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn-login">Iniciar Sesión</button>
+            </form>
+            <div id="message" class="message"></div>
+            <div class="register-link">
+                <p>¿No tienes cuenta? <a href="#" id="showRegister">Regístrate aquí</a></p>
+            </div>
+        </div>
+
+        <!-- Formulario de registro mejorado -->
+        <div id="registerCard" class="login-card" style="display: none;">
+            <div class="logo">
+                <h1>🩸 Registro</h1>
+                <p>Crea tu cuenta</p>
+            </div>
+            <form id="registerForm" class="login-form">
+                <!-- Información básica -->
+                <div class="form-section">
+                    <h3>Información Personal</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="regFirstName">Nombre:</label>
+                            <input type="text" id="regFirstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="regLastName">Apellido:</label>
+                            <input type="text" id="regLastName" name="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="regEmail">Email:</label>
+                        <input type="email" id="regEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regUsername">Nombre de Usuario:</label>
+                        <input type="text" id="regUsername" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regPassword">Contraseña:</label>
+                        <input type="password" id="regPassword" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regPhone">Teléfono:</label>
+                        <input type="tel" id="regPhone" name="phone" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="regBirthDate">Fecha de Nacimiento:</label>
+                            <input type="date" id="regBirthDate" name="birthDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="regGender">Género:</label>
+                            <select id="regGender" name="gender" required>
+                                <option value="">Selecciona</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="regBloodType">Tipo de Sangre:</label>
+                        <select id="regBloodType" name="bloodType" required>
+                            <option value="">Selecciona</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="regRole">Tipo de Usuario:</label>
+                        <select id="regRole" name="role" required>
+                            <option value="">Selecciona tu rol</option>
+                            <option value="donor">Donador</option>
+                            <option value="receiver">Receptor</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Campos específicos para receptores -->
+                <div id="receiverFields" class="form-section" style="display: none;">
+                    <h3>Información Médica (Receptor)</h3>
+                    <div class="form-group">
+                        <label for="regHospital">Hospital:</label>
+                        <select id="regHospital" name="hospitalId">
+                            <option value="">Selecciona un hospital</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="regMedicalRecord">Número de Expediente Médico:</label>
+                        <input type="text" id="regMedicalRecord" name="medicalRecord" placeholder="Ej: MR12345">
+                    </div>
+                    <div class="form-group">
+                        <label for="regDiagnosis">Diagnóstico:</label>
+                        <textarea id="regDiagnosis" name="diagnosis" rows="3" placeholder="Describe tu condición médica"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="regDoctor">Nombre del Doctor:</label>
+                        <input type="text" id="regDoctor" name="doctorName" placeholder="Dr. Nombre Apellido">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="regRequiredDonations">Donaciones Requeridas:</label>
+                            <input type="number" id="regRequiredDonations" name="requiredDonations" min="1" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="regDeadline">Fecha Límite:</label>
+                            <input type="date" id="regDeadline" name="deadline">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="regStory">Historia Personal (Opcional):</label>
+                        <textarea id="regStory" name="story" rows="3" placeholder="Cuéntanos tu historia..."></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn-login">Registrarse</button>
+            </form>
+            <div id="regMessage" class="message"></div>
+            <div class="register-link">
+                <p>¿Ya tienes cuenta? <a href="#" id="showLogin">Inicia sesión aquí</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="login-script.js"></script>
+</body>
+</html> 

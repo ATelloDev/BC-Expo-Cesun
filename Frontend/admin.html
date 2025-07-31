@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Sistema de Donación</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="dashboard">
+        <header class="header">
+            <div class="header-content">
+                <h1>🩸 Panel de Administración</h1>
+                <div class="user-info">
+                    <span id="userName">Cargando...</span>
+                    <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="container">
+                <!-- Estadísticas Generales -->
+                <section class="stats-section">
+                    <h2>📊 Estadísticas Generales</h2>
+                    <div class="stats-grid" id="statsGrid">
+                        <div class="stat-card">
+                            <div class="stat-icon">👥</div>
+                            <h3>Total Usuarios</h3>
+                            <p class="stat-number" id="totalUsers">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🩸</div>
+                            <h3>Donadores</h3>
+                            <p class="stat-number" id="totalDonors">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🏥</div>
+                            <h3>Receptores</h3>
+                            <p class="stat-number" id="totalReceivers">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🏢</div>
+                            <h3>Hospitales</h3>
+                            <p class="stat-number" id="totalHospitals">0</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gestión de Hospitales -->
+                <section class="hospitals-section">
+                    <h2>🏢 Gestión de Hospitales</h2>
+                    <div class="section-header">
+                        <button class="btn-primary" onclick="showAddHospitalModal()">Agregar Hospital</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table" id="hospitalsTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Ciudad</th>
+                                    <th>Teléfono</th>
+                                    <th>Email</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="hospitalsTableBody">
+                                <tr>
+                                    <td colspan="7" class="loading">Cargando hospitales...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Gestión de Donadores -->
+                <section class="donors-section">
+                    <h2>🩸 Gestión de Donadores</h2>
+                    <div class="table-container">
+                        <table class="data-table" id="donorsTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Tipo de Sangre</th>
+                                    <th>Email</th>
+                                    <th>Donaciones</th>
+                                    <th>Última Donación</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="donorsTableBody">
+                                <tr>
+                                    <td colspan="8" class="loading">Cargando donadores...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Gestión de Receptores -->
+                <section class="receivers-section">
+                    <h2>🏥 Gestión de Receptores</h2>
+                    <div class="table-container">
+                        <table class="data-table" id="receiversTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Tipo de Sangre</th>
+                                    <th>Hospital</th>
+                                    <th>Diagnóstico</th>
+                                    <th>Progreso</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="receiversTableBody">
+                                <tr>
+                                    <td colspan="8" class="loading">Cargando receptores...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para agregar/editar hospital -->
+    <div id="hospitalModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeHospitalModal()">&times;</span>
+            <h2 id="hospitalModalTitle">Agregar Hospital</h2>
+            <form id="hospitalForm" class="admin-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hospitalName">Nombre:</label>
+                        <input type="text" id="hospitalName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hospitalCity">Ciudad:</label>
+                        <input type="text" id="hospitalCity" name="city" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hospitalAddress">Dirección:</label>
+                        <input type="text" id="hospitalAddress" name="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hospitalPhone">Teléfono:</label>
+                        <input type="tel" id="hospitalPhone" name="phone" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hospitalEmail">Email:</label>
+                        <input type="email" id="hospitalEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hospitalPostalCode">Código Postal:</label>
+                        <input type="text" id="hospitalPostalCode" name="postalCode" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="hospitalDescription">Descripción:</label>
+                    <textarea id="hospitalDescription" name="description" rows="3"></textarea>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn-primary">Guardar</button>
+                    <button type="button" class="btn-secondary" onclick="closeHospitalModal()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para ver detalles de usuario -->
+    <div id="userDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeUserDetailsModal()">&times;</span>
+            <h2 id="userDetailsTitle">Detalles del Usuario</h2>
+            <div id="userDetailsContent">
+                <div class="loading">Cargando detalles...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html> 

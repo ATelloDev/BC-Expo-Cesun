@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🩸 BloodCode - Conectando Vidas</title>
+    <link rel="stylesheet" href="index-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>🩸 BloodCode</h1>
+                <p>Conectando Vidas</p>
+            </div>
+            <nav class="nav">
+                <a href="#stories" class="nav-link">Historias</a>
+                <a href="#about" class="nav-link">Acerca de</a>
+                <a href="#contact" class="nav-link">Contacto</a>
+                <a href="login.html" class="btn-login-nav">Iniciar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Cada gota cuenta, cada vida importa</h1>
+            <p class="hero-subtitle">Conectamos donadores con receptores para salvar vidas</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number" data-stat="lives-saved">1,247</span>
+                    <span class="stat-label">Vidas Salvadas</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" data-stat="active-donors">3,891</span>
+                    <span class="stat-label">Donadores Activos</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" data-stat="hospitals">156</span>
+                    <span class="stat-label">Hospitales</span>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <a href="login.html" class="btn-primary">Únete Ahora</a>
+                <a href="#stories" class="btn-secondary">Ver Historias</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="blood-drops">
+                <div class="drop"></div>
+                <div class="drop"></div>
+                <div class="drop"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stories Section -->
+    <section id="stories" class="stories-section">
+        <div class="container">
+            <h2 class="section-title">Historias que Inspiran</h2>
+            <p class="section-subtitle">Conoce las historias reales de nuestros pacientes</p>
+            
+            <div class="stories-grid" id="storiesGrid">
+                <!-- Las historias se cargarán dinámicamente -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>¿Qué es BloodCode?</h2>
+                    <p>BloodCode es una plataforma innovadora que conecta donadores de sangre con receptores que necesitan transfusiones. Nuestra misión es salvar vidas facilitando el proceso de donación de sangre.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-heart"></i>
+                            <h3>Conectamos Vidas</h3>
+                            <p>Unimos donadores con receptores de manera eficiente</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>Seguro y Confiable</h3>
+                            <p>Todos nuestros usuarios están verificados</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-clock"></i>
+                            <h3>Respuesta Rápida</h3>
+                            <p>Encuentra donadores en tiempo real</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="heart-animation">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>¿Listo para hacer la diferencia?</h2>
+            <p>Únete a nuestra comunidad y ayuda a salvar vidas</p>
+            <div class="cta-buttons">
+                <a href="login.html" class="btn-primary">Registrarse</a>
+                <a href="login.html" class="btn-secondary">Iniciar Sesión</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🩸 BloodCode</h3>
+                    <p>Conectando vidas, salvando futuros</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <a href="#stories">Historias</a>
+                    <a href="#about">Acerca de</a>
+                    <a href="login.html">Login</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>info@bloodcode.com</p>
+                    <p>+52 664 123 4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BloodCode. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="index-script.js"></script>
+</body>
+</html> 

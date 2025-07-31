@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista Donador - Sistema de Donación</title>
+    <link rel="stylesheet" href="donor.css">
+</head>
+<body>
+    <div class="dashboard">
+        <header class="header">
+            <div class="header-content">
+                <h1>🩸 Panel del Donador</h1>
+                <div class="user-info">
+                    <span id="userName">Cargando...</span>
+                    <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="container">
+                <!-- Estadísticas -->
+                <section class="stats-section">
+                    <h2>📊 Mis Estadísticas</h2>
+                    <div class="stats-grid" id="statsGrid">
+                        <div class="stat-card">
+                            <div class="stat-icon">🩸</div>
+                            <h3>Donaciones Totales</h3>
+                            <p class="stat-number" id="totalDonations">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📅</div>
+                            <h3>Este Año</h3>
+                            <p class="stat-number" id="donationsThisYear">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⏰</div>
+                            <h3>Estado</h3>
+                            <p class="stat-text" id="canDonate">Verificando...</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🩺</div>
+                            <h3>Tipo de Sangre</h3>
+                            <p class="stat-text" id="bloodType">Cargando...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Nueva Donación -->
+                <section class="donation-section">
+                    <h2>🩸 Nueva Donación</h2>
+                    <div class="donation-form-container">
+                        <form id="donationForm" class="donation-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="hospital">Hospital:</label>
+                                    <select id="hospital" name="hospital" required>
+                                        <option value="">Selecciona un hospital</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="donationDate">Fecha:</label>
+                                    <input type="date" id="donationDate" name="donationDate" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="notes">Notas (opcional):</label>
+                                <textarea id="notes" name="notes" placeholder="Información adicional..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary">Programar Donación</button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Historial -->
+                <section class="history-section">
+                    <h2>📋 Historial de Donaciones</h2>
+                    <div class="history-container" id="donationHistory">
+                        <div class="loading">Cargando historial...</div>
+                    </div>
+                </section>
+
+                <!-- Información Personal -->
+                <section class="profile-section">
+                    <h2>👤 Mi Perfil</h2>
+                    <div class="profile-card">
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <span class="label">Nombre:</span>
+                                <span id="profileName">Cargando...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Tipo de Sangre:</span>
+                                <span id="profileBloodType">Cargando...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Email:</span>
+                                <span id="profileEmail">Cargando...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Teléfono:</span>
+                                <span id="profilePhone">Cargando...</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="donor.js"></script>
+</body>
+</html> 

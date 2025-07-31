@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista Receptor - Sistema de Donación</title>
+    <link rel="stylesheet" href="receiver.css">
+</head>
+<body>
+    <div class="dashboard">
+        <header class="header">
+            <div class="header-content">
+                <h1>🩸 Panel del Receptor</h1>
+                <div class="user-info">
+                    <span id="userName">Cargando...</span>
+                    <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="container">
+                <!-- Estadísticas -->
+                <section class="stats-section">
+                    <h2>📊 Mi Estado</h2>
+                    <div class="stats-grid" id="statsGrid">
+                        <div class="stat-card">
+                            <div class="stat-icon">🩸</div>
+                            <h3>Donaciones Recibidas</h3>
+                            <p class="stat-number" id="receivedDonations">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📅</div>
+                            <h3>Donaciones Requeridas</h3>
+                            <p class="stat-number" id="requiredDonations">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⏰</div>
+                            <h3>Progreso</h3>
+                            <p class="stat-text" id="progress">0%</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🏥</div>
+                            <h3>Hospital</h3>
+                            <p class="stat-text" id="hospitalName">Cargando...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Información Médica -->
+                <section class="medical-section">
+                    <h2>🏥 Información Médica</h2>
+                    <div class="medical-card">
+                        <div class="medical-info">
+                            <div class="info-item">
+                                <span class="label">Diagnóstico:</span>
+                                <span id="diagnosis">Cargando...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Doctor:</span>
+                                <span id="doctorName">Cargando...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Fecha Límite:</span>
+                                <span id="deadline">Cargando...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Estado:</span>
+                                <span id="status">Cargando...</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Historial de Donaciones -->
+                <section class="history-section">
+                    <h2>📋 Historial de Donaciones Recibidas</h2>
+                    <div class="history-container" id="donationHistory">
+                        <div class="loading">Cargando historial...</div>
+                    </div>
+                </section>
+
+                <!-- Información Personal -->
+                <section class="profile-section">
+                    <h2>👤 Mi Perfil</h2>
+                    <div class="profile-card">
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <span class="label">Nombre:</span>
+                                <span id="profileName">Cargando...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Tipo de Sangre:</span>
+                                <span id="profileBloodType">Cargando...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Email:</span>
+                                <span id="profileEmail">Cargando...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Teléfono:</span>
+                                <span id="profilePhone">Cargando...</span>
+                            </div>
+                        </div>
+                        <button class="btn-edit-profile" onclick="showEditProfile()">Editar Perfil</button>
+                    </div>
+                </section>
+
+                <!-- Modal de Edición de Perfil -->
+                <div id="editProfileModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeEditProfile()">&times;</span>
+                        <h2>Editar Perfil</h2>
+                        <form id="editProfileForm" class="edit-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="editFirstName">Nombre:</label>
+                                    <input type="text" id="editFirstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editLastName">Apellido:</label>
+                                    <input type="text" id="editLastName" name="lastName" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="editEmail">Email:</label>
+                                    <input type="email" id="editEmail" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editPhone">Teléfono:</label>
+                                    <input type="tel" id="editPhone" name="phone" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="editBloodType">Tipo de Sangre:</label>
+                                    <select id="editBloodType" name="bloodType" required>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editBirthDate">Fecha de Nacimiento:</label>
+                                    <input type="date" id="editBirthDate" name="birthDate" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="editDiagnosis">Diagnóstico:</label>
+                                <textarea id="editDiagnosis" name="diagnosis" required></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="editDoctorName">Doctor:</label>
+                                    <input type="text" id="editDoctorName" name="doctorName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editRequiredDonations">Donaciones Requeridas:</label>
+                                    <input type="number" id="editRequiredDonations" name="requiredDonations" min="1" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="editDeadline">Fecha Límite:</label>
+                                <input type="date" id="editDeadline" name="deadline" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editStory">Historia:</label>
+                                <textarea id="editStory" name="story" placeholder="Cuéntanos tu historia..."></textarea>
+                            </div>
+                            <div class="form-buttons">
+                                <button type="submit" class="btn-primary">Guardar Cambios</button>
+                                <button type="button" class="btn-secondary" onclick="closeEditProfile()">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="receiver.js"></script>
+</body>
+</html> 
