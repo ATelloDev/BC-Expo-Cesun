@@ -326,11 +326,11 @@ function showWelcomeMessage() {
         position: fixed;
         top: 100px;
         right: 20px;
-        background: linear-gradient(45deg, #ff6b35, #f7931e);
+        background: rgba(196, 3, 3, 1);
         color: white;
         padding: 1rem 1.5rem;
         border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        box-shadow: 0 5px 15px rgba(112, 9, 9, 1);
         z-index: 10000;
         transform: translateX(400px);
         transition: transform 0.5s ease;

@@ -47,7 +47,7 @@ body::before {
 
 /* Ventana de Usuarios de Prueba (Independiente) */
 .test-users-window {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.925);
     backdrop-filter: blur(15px);
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px;
@@ -75,7 +75,7 @@ body::before {
     left: -2px;
     right: -2px;
     bottom: -2px;
-    background: linear-gradient(45deg, #dc3545, #c82333, #dc3545);
+    background: linear-gradient(45deg, #020101, #c82333, #dc3545);
     border-radius: 20px;
     z-index: -1;
     opacity: 0.3;
