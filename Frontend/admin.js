@@ -815,52 +815,7 @@ style.textContent = `
         border-bottom: 1px solid #dee2e6;
         vertical-align: middle;
     }
-    
-    /* Mejoras en las tarjetas de estadísticas */
-    .stats-card {
-        background: linear-gradient(135deg, #000000 0%, #dc3545 100%);
-        border-radius: 20px;
-        padding: 25px;
-        color: white;
-        text-align: center;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .stats-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-        z-index: 1;
-    }
-    
-    .stats-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-    }
-    
-    .stats-card h3,
-    .stats-card .stats-number {
-        position: relative;
-        z-index: 2;
-    }
-    
-    .stats-card h3 {
-        font-size: 16px;
-        margin-bottom: 10px;
-        opacity: 0.9;
-    }
-    
-    .stats-card .stats-number {
-        font-size: 32px;
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
+   
     
     /* Mejoras en botones */
     .btn-primary {
@@ -881,25 +836,7 @@ style.textContent = `
     }
     
     /* Mejoras en el header */
-    .header {
-        background: linear-gradient(135deg, #000000 0%, #dc3545 100%);
-        color: white;
-        padding: 30px 0;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-        z-index: 1;
-    }
+   
     
     .header h1,
     .header p {
