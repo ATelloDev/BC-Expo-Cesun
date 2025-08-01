@@ -7,8 +7,8 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: rgb(0, 0, 0)
-    color: #ffffff;
+    background: rgba(0, 0, 0, 0.247)
+    color: rgba(0, 0, 0, 0.247)
     line-height: 1.6;
     overflow-x: hidden;
 }
@@ -69,7 +69,7 @@ body {
 }
 
 .btn-login-nav {
-    background: linear-gradient(45deg, #d8061b, #c82333);
+    background: linear-gradient(45deg, #ff0019, #c82333);
     color: white;
     padding: 0.8rem 1.5rem;
     border-radius: 25px;
@@ -93,7 +93,8 @@ body {
     text-align: center;
     padding: 120px 20px 60px;
     position: relative;
-    background: linear-gradient(135deg, #000000 0%, #990312 50%, #000000 100%)
+
+        backdrop-filter: blur(10px);
 
 }
 
@@ -104,7 +105,7 @@ body {
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
+    background: linear-gradient(135deg, #000000 0%, #990312 50%, #000000 100%)
     border: 1px solid rgba(255, 255, 255, 0.1);
 
 }
@@ -167,7 +168,7 @@ body {
 
 .btn-primary {
   border: 2px solid #eee9ea;
-     background-color: #af0606;
+     background-color: #ff0303;
     color: white;
 }
 
@@ -175,7 +176,7 @@ body {
     background: transparent;
     color: #ffffff;
     border: 2px solid #eee9ea;
-     background-color: #af0606;
+     background-color: #f70000;
 }
 
 .btn-primary:hover, .btn-secondary:hover {
@@ -201,8 +202,8 @@ body {
 
 .drop {
     position: absolute;
-    width: 20px;
-    height: 30px;
+    width: 100px;
+    height: 160px;
     background: radial-gradient(ellipse at center, rgba(255, 0, 0, 0.3) 0%, transparent 70%);
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     animation: float 6s ease-in-out infinite;
@@ -210,20 +211,20 @@ body {
 
 .drop:nth-child(1) {
     top: 20%;
-    left: 10%;
+    left: 0%;
     animation-delay: 0s;
 }
 
 .drop:nth-child(2) {
-    top: 60%;
+    top: 0%;
     right: 15%;
-    animation-delay: 2s;
+    animation-delay: 1s;
 }
 
 .drop:nth-child(3) {
     bottom: 30%;
     left: 20%;
-    animation-delay: 4s;
+    animation-delay: 2s;
 }
 
 @keyframes float {
@@ -234,7 +235,7 @@ body {
 /* Stories Section */
 .stories-section {
     padding: 80px 0;
-    background: rgba(0, 0, 0 );
+
    border-bottom: 1px solid rgb(255, 253, 254);
 }
 
@@ -242,13 +243,13 @@ body {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    color: #ffffff;
+    color: #ff0000;
 }
 
 .section-subtitle {
     text-align: center;
     font-size: 1.1rem;
-    color: #cccccc;
+    color: #000000;
     margin-bottom: 3rem;
 }
 
@@ -260,7 +261,7 @@ body {
 }
 
 .story-card {
-    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.808);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 15px;
@@ -296,12 +297,13 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: linear-gradient(45deg, #af0606, #f06363);
+    background: linear-gradient(45deg, #ff0101, #201e1e);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 1rem;
     font-size: 1.2rem;
+    color: #ffffff;
 }
 
 .story-info h3 {
@@ -333,8 +335,8 @@ body {
 }
 
 .blood-type {
-    background: rgba(255, 107, 53, 0.2);
-    color: #ff6b35;
+    background: rgb(255, 0, 0);
+    color: #ffffff;
     padding: 0.3rem 0.8rem;
     border-radius: 15px;
     font-weight: 600;
