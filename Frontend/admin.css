@@ -1,7 +1,7 @@
 /* Estilos para el Panel de Administración */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+    background: #000000;
     color: #ffffff;
     margin: 0;
     padding: 0;
@@ -34,7 +34,7 @@ body::before {
 
 /* Header */
 .header {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgb(228, 0, 0);
     border-bottom: 3px solid #dc143c;
     padding: 1rem 0;
     position: relative;
@@ -48,8 +48,8 @@ body::before {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(220, 20, 60, 0.1), transparent);
-    animation: bloodFlow 3s infinite;
+    background: linear-gradient(90deg, transparent, rgb(255, 255, 255), transparent);
+    animation: bloodFlow 26s infinite;
 }
 
 @keyframes bloodFlow {
@@ -69,7 +69,7 @@ body::before {
 }
 
 .header h1 {
-    color: #000000;
+    color: #ffffff;
     margin: 0;
     font-size: 2rem;
     font-weight: bold;
@@ -82,12 +82,15 @@ body::before {
 }
 
 .user-info span {
-    color: #000000;
-    font-weight: 600;
+    color: #f3f3f3;
+    font-weight: 600px;
+    font-style: italic;
 }
 
 .logout-btn {
-    background: linear-gradient(135deg, #dc143c 0%, #ff1744 100%);
+    background: linear-gradient(135deg, #690418 0%, #db0303 100%);
+    border: 1px;
+    border-color: #ffffff;
     color: white;
     border: none;
     padding: 0.5rem 1rem;
@@ -208,7 +211,7 @@ section h2::after {
 }
 
 .stat-number {
-    color: #dc143c;
+    color: #030202;
     font-size: 2rem;
     font-weight: bold;
     margin: 0;
