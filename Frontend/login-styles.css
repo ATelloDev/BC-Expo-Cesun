@@ -34,8 +34,8 @@ body::before {
 }
 
 .container {
-    width: 100%;
-    max-width: 1400px; /* Aumentado para acomodar ambas ventanas lado a lado */
+    width: 800;
+    max-width: 1900px; /* Aumentado para acomodar ambas ventanas lado a lado */
     padding: 20px;
     position: relative;
     display: flex;
@@ -263,8 +263,8 @@ body::before {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: transform 0.3s ease;
-    width: 100%;
-    max-width: 500px; /* Reducido para que quepa lado a lado */
+    width: 800px; /* Ancho fijo para mantener la forma alargada */
+    max-width: 9990px; /* Reducido para que quepa lado a lado */
     flex-shrink: 0; /* Evitar que se comprima */
     display: flex;
     flex-direction: column;
@@ -464,7 +464,7 @@ body::before {
 }
 
 .container.test-users-hidden .login-card {
-    max-width: 500px; /* Mantener el ancho original para conservar la forma alargada */
+    max-width: 4500px; /* Mantener el ancho original para conservar la forma alargada */
     min-height: 600px; /* Altura mínima para mantener la forma alargada */
 }
 
