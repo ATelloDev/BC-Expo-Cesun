@@ -11,7 +11,7 @@ const receiverController = {
             model: User,
             as: 'User',
             where: { IsActive: true },
-            attributes: ['FirstName', 'LastName', 'BloodType', 'Email', 'PhoneNumber']
+            attributes: ['UserID', 'FirstName', 'LastName', 'BloodType', 'Email', 'PhoneNumber']
           },
           {
             model: Hospital,
@@ -251,7 +251,14 @@ const receiverController = {
       const { id } = req.params;
       const updateData = req.body;
       
-      const receiver = await Receiver.findByPk(id);
+      // Buscar por ReceiverID primero, luego por UserID
+      let receiver = await Receiver.findByPk(id);
+      
+      if (!receiver) {
+        receiver = await Receiver.findOne({
+          where: { UserID: id }
+        });
+      }
       
       if (!receiver) {
         return res.status(404).json({

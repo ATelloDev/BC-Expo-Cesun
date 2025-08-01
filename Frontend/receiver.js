@@ -27,11 +27,13 @@ function showMessage(message, type = 'success') {
         top: 20px;
         right: 20px;
         padding: 15px 20px;
-        border-radius: 8px;
+        border-radius: 25px;
         color: white;
         font-weight: 600;
         z-index: 1000;
         animation: slideIn 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        backdrop-filter: blur(10px);
     `;
     
     if (type === 'success') {
@@ -294,7 +296,7 @@ window.onclick = function(event) {
     }
 }
 
-// Estilos CSS para animaciones de mensajes
+// Estilos CSS para elementos visuales atractivos
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
@@ -317,6 +319,306 @@ style.textContent = `
             transform: translateX(100%);
             opacity: 0;
         }
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    @keyframes glow {
+        0% { box-shadow: 0 0 5px rgba(220, 53, 69, 0.5); }
+        50% { box-shadow: 0 0 20px rgba(220, 53, 69, 0.8); }
+        100% { box-shadow: 0 0 5px rgba(220, 53, 69, 0.5); }
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Mejoras en las tarjetas de estadísticas */
+    .stats-card {
+        background: linear-gradient(135deg, #000000 0%, #dc3545 100%);
+        border-radius: 20px;
+        padding: 25px;
+        color: white;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .stats-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        z-index: 1;
+    }
+    
+    .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+    
+    .stats-card h3,
+    .stats-card .stats-number {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .stats-card h3 {
+        font-size: 16px;
+        margin-bottom: 10px;
+        opacity: 0.9;
+    }
+    
+    .stats-card .stats-number {
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    
+    /* Barra de progreso mejorada */
+    .progress-container {
+        background: rgba(255,255,255,0.2);
+        border-radius: 25px;
+        height: 20px;
+        overflow: hidden;
+        position: relative;
+        margin: 10px 0;
+    }
+    
+    .progress-bar {
+        height: 100%;
+        border-radius: 25px;
+        transition: width 0.8s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .progress-bar::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    
+    .progress-bar.high {
+        background: linear-gradient(45deg, #dc3545, #c82333);
+        animation: glow 2s infinite;
+    }
+    
+    .progress-bar.medium {
+        background: linear-gradient(45deg, #dc3545, #e55a00);
+        animation: pulse 2s infinite;
+    }
+    
+    .progress-bar.low {
+        background: linear-gradient(45deg, #343a40, #495057);
+    }
+    
+    /* Mejoras en el formulario de edición */
+    .edit-form {
+        background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 100%);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(220, 53, 69, 0.1);
+        border: none;
+    }
+    
+    .edit-form h3 {
+        color: #dc3545;
+        font-weight: 600;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+        display: block;
+    }
+    
+    .form-control {
+        border-radius: 10px;
+        border: 2px solid #e9ecef;
+        padding: 12px 15px;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+    
+    .form-control:focus {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        outline: none;
+    }
+    
+    /* Botón de guardar especial */
+    .btn-save {
+        background: linear-gradient(45deg, #dc3545, #c82333);
+        border: none;
+        border-radius: 25px;
+        padding: 15px 30px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        color: white;
+        width: 100%;
+    }
+    
+    .btn-save:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
+    }
+    
+    /* Mejoras en la tabla de historial */
+    .donation-history {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border: none;
+    }
+    
+    .donation-history thead th {
+        background: linear-gradient(45deg, #343a40, #495057);
+        color: white;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 15px;
+        border: none;
+    }
+    
+    .donation-history tbody tr {
+        transition: all 0.3s ease;
+    }
+    
+    .donation-history tbody tr:hover {
+        background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .donation-history tbody td {
+        padding: 15px;
+        border-bottom: 1px solid #dee2e6;
+        vertical-align: middle;
+    }
+    
+    /* Indicador de urgencia */
+    .urgency-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin: 10px 0;
+    }
+    
+    .urgency-indicator.high {
+        background: linear-gradient(45deg, #dc3545, #c82333);
+        color: white;
+        animation: glow 2s infinite;
+    }
+    
+    .urgency-indicator.medium {
+        background: linear-gradient(45deg, #fd7e14, #e55a00);
+        color: white;
+        animation: pulse 2s infinite;
+    }
+    
+    .urgency-indicator.low {
+        background: linear-gradient(45deg, #28a745, #20c997);
+        color: white;
+    }
+    
+    /* Mejoras en el header */
+    .header {
+        background: linear-gradient(135deg, #000000 0%, #dc3545 100%);
+        color: white;
+        padding: 30px 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        z-index: 1;
+    }
+    
+    .header h1,
+    .header p {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+    
+    /* Mejoras en modales */
+    .modal {
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    .modal-header {
+        background: linear-gradient(45deg, #343a40, #495057);
+        color: white;
+        padding: 20px;
+        border: none;
+    }
+    
+    .modal-body {
+        padding: 30px;
+    }
+    
+    /* Animaciones para elementos que aparecen */
+    .fade-in {
+        animation: fadeIn 0.6s ease-in;
     }
 `;
 document.head.appendChild(style);

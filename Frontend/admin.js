@@ -114,8 +114,10 @@ async function loadHospitals() {
                     <td>${hospital.Email}</td>
                     <td><span class="status-${hospital.IsActive ? 'active' : 'inactive'}">${hospital.IsActive ? 'Activo' : 'Inactivo'}</span></td>
                     <td>
-                        <button class="action-btn" onclick="viewHospitalDetails(${hospital.HospitalID})">Ver</button>
-                        <button class="action-btn secondary" onclick="editHospital(${hospital.HospitalID})">Editar</button>
+                        <span class="hospital-activity ${hospital.IsActive ? 'active' : 'inactive'}">
+                            <i class="fas ${hospital.IsActive ? 'fa-hospital' : 'fa-hospital-alt'}"></i>
+                            ${hospital.IsActive ? 'Operativo' : 'Mantenimiento'}
+                        </span>
                     </td>
                 </tr>
             `).join('');
@@ -152,8 +154,10 @@ async function loadDonors() {
                     <td>${donor.LastDonationDate ? new Date(donor.LastDonationDate).toLocaleDateString() : 'Nunca'}</td>
                     <td><span class="status-${donor.CanDonateNow ? 'active' : 'inactive'}">${donor.CanDonateNow ? 'Disponible' : 'No disponible'}</span></td>
                     <td>
-                        <button class="action-btn" onclick="viewDonorDetails(${donor.DonorID})">Ver</button>
-                        <button class="action-btn secondary" onclick="editDonor(${donor.DonorID})">Editar</button>
+                        <span class="donor-status-indicator ${donor.CanDonateNow ? 'available' : 'unavailable'}">
+                            <i class="fas ${donor.CanDonateNow ? 'fa-heart' : 'fa-clock'}"></i>
+                            ${donor.CanDonateNow ? 'Disponible' : 'En espera'}
+                        </span>
                     </td>
                 </tr>
             `).join('');
@@ -200,8 +204,10 @@ async function loadReceivers() {
                         </td>
                         <td><span class="status-${receiver.Status === 'active' ? 'active' : 'inactive'}">${receiver.Status}</span></td>
                         <td>
-                            <button class="action-btn" onclick="viewReceiverDetails(${receiver.ReceiverID})">Ver</button>
-                            <button class="action-btn secondary" onclick="editReceiver(${receiver.ReceiverID})">Editar</button>
+                            <span class="receiver-priority ${receiver.RequiredDonations - receiver.CurrentDonations > 2 ? 'high' : receiver.RequiredDonations - receiver.CurrentDonations > 0 ? 'medium' : 'low'}">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                ${receiver.RequiredDonations - receiver.CurrentDonations} faltantes
+                            </span>
                         </td>
                     </tr>
                 `;
@@ -579,34 +585,50 @@ async function saveDonorChanges(donorId) {
 
 async function saveReceiverChanges(receiverId) {
     try {
-        const updatedData = {
+        // Actualizar datos del usuario
+        const userUpdateData = {
             FirstName: document.getElementById('editFirstName').value,
             LastName: document.getElementById('editLastName').value,
-            Email: document.getElementById('editEmail').value,
+            Email: document.getElementById('editEmail').value
+        };
+        
+        const userResponse = await fetch(`${API_BASE_URL}/users/${receiverId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userUpdateData)
+        });
+        
+        if (!userResponse.ok) {
+            throw new Error('Error actualizando datos del usuario');
+        }
+        
+        // Actualizar datos del receptor
+        const receiverUpdateData = {
             Diagnosis: document.getElementById('editDiagnosis').value,
             DoctorName: document.getElementById('editDoctorName').value,
             RequiredDonations: parseInt(document.getElementById('editRequiredDonations').value)
         };
         
-        const response = await fetch(`${API_BASE_URL}/receivers/${receiverId}`, {
+        const receiverResponse = await fetch(`${API_BASE_URL}/receivers/${receiverId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(updatedData)
+            body: JSON.stringify(receiverUpdateData)
         });
         
-        if (response.ok) {
-            showMessage('Receptor actualizado exitosamente', 'success');
-            closeUserDetailsModal();
-            loadReceivers(); // Recargar la tabla
-        } else {
-            const data = await response.json();
-            showMessage(data.message || 'Error actualizando receptor', 'error');
+        if (!receiverResponse.ok) {
+            throw new Error('Error actualizando datos del receptor');
         }
+        
+        showMessage('Receptor actualizado exitosamente', 'success');
+        closeUserDetailsModal();
+        loadReceivers(); // Recargar la tabla
     } catch (error) {
         console.error('Error actualizando receptor:', error);
-        showMessage('Error de conexión', 'error');
+        showMessage('Error actualizando receptor: ' + error.message, 'error');
     }
 }
 
@@ -623,7 +645,7 @@ window.onclick = function(event) {
     }
 }
 
-// Estilos CSS para animaciones de mensajes y formularios de edición
+// Estilos CSS para elementos visuales atractivos
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
@@ -648,53 +670,293 @@ style.textContent = `
         }
     }
     
-    .edit-form {
-        padding: 20px;
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
     }
     
-    .edit-form .form-group {
-        margin-bottom: 15px;
+    @keyframes heartbeat {
+        0% { transform: scale(1); }
+        14% { transform: scale(1.3); }
+        28% { transform: scale(1); }
+        42% { transform: scale(1.3); }
+        70% { transform: scale(1); }
     }
     
-    .edit-form label {
-        display: block;
-        margin-bottom: 5px;
+    @keyframes glow {
+        0% { box-shadow: 0 0 5px rgba(220, 53, 69, 0.5); }
+        50% { box-shadow: 0 0 20px rgba(220, 53, 69, 0.8); }
+        100% { box-shadow: 0 0 5px rgba(220, 53, 69, 0.5); }
+    }
+    
+    /* Indicadores de estado para donadores */
+    .donor-status-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 20px;
         font-weight: 600;
-        color: #333;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
     }
     
-    .edit-form input,
-    .edit-form select {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
+    .donor-status-indicator.available {
+        background: linear-gradient(45deg, #dc3545, #c82333);
+        color: white;
+        animation: heartbeat 2s infinite;
+    }
+    
+    .donor-status-indicator.unavailable {
+        background: linear-gradient(45deg, #343a40, #495057);
+        color: white;
+    }
+    
+    .donor-status-indicator i {
         font-size: 14px;
     }
     
-    .edit-form .form-buttons {
-        display: flex;
-        gap: 10px;
-        margin-top: 20px;
-    }
-    
-    .edit-form .btn-primary,
-    .edit-form .btn-secondary {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
+    /* Indicadores de prioridad para receptores */
+    .receiver-priority {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 20px;
         font-weight: 600;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
     }
     
-    .edit-form .btn-primary {
-        background: linear-gradient(45deg, #28a745, #20c997);
+    .receiver-priority.high {
+        background: linear-gradient(45deg, #dc3545, #c82333);
+        color: white;
+        animation: glow 2s infinite;
+    }
+    
+    .receiver-priority.medium {
+        background: linear-gradient(45deg, #dc3545, #e55a00);
+        color: white;
+        animation: pulse 2s infinite;
+    }
+    
+    .receiver-priority.low {
+        background: linear-gradient(45deg, #343a40, #495057);
         color: white;
     }
     
-    .edit-form .btn-secondary {
-        background: linear-gradient(45deg, #6c757d, #495057);
+    .receiver-priority i {
+        font-size: 14px;
+    }
+    
+    /* Indicadores de actividad para hospitales */
+    .hospital-activity {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+    }
+    
+    .hospital-activity.active {
+        background: linear-gradient(45deg, #dc3545, #c82333);
         color: white;
+    }
+    
+    .hospital-activity.inactive {
+        background: linear-gradient(45deg, #343a40, #495057);
+        color: white;
+    }
+    
+    .hospital-activity i {
+        font-size: 14px;
+    }
+    
+    /* Mejoras en las tablas */
+    .data-table {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border: none;
+    }
+    
+    .data-table thead th {
+        background: linear-gradient(45deg, #000000, #343a40);
+        color: white;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 15px;
+        border: none;
+    }
+    
+    .data-table tbody tr {
+        transition: all 0.3s ease;
+    }
+    
+    .data-table tbody tr:hover {
+        background: linear-gradient(45deg, #fff5f5, #ffe6e6);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.2);
+    }
+    
+    .data-table tbody td {
+        padding: 15px;
+        border-bottom: 1px solid #dee2e6;
+        vertical-align: middle;
+    }
+    
+    /* Mejoras en las tarjetas de estadísticas */
+    .stats-card {
+        background: linear-gradient(135deg, #000000 0%, #dc3545 100%);
+        border-radius: 20px;
+        padding: 25px;
+        color: white;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .stats-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        z-index: 1;
+    }
+    
+    .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+    
+    .stats-card h3,
+    .stats-card .stats-number {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .stats-card h3 {
+        font-size: 16px;
+        margin-bottom: 10px;
+        opacity: 0.9;
+    }
+    
+    .stats-card .stats-number {
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    
+    /* Mejoras en botones */
+    .btn-primary {
+        background: linear-gradient(45deg, #dc3545, #c82333);
+        border: none;
+        border-radius: 25px;
+        padding: 12px 25px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
+    }
+    
+    /* Mejoras en el header */
+    .header {
+        background: linear-gradient(135deg, #000000 0%, #dc3545 100%);
+        color: white;
+        padding: 30px 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        z-index: 1;
+    }
+    
+    .header h1,
+    .header p {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+    
+    /* Mejoras en modales */
+    .modal {
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    .modal-header {
+        background: linear-gradient(45deg, #000000, #dc3545);
+        color: white;
+        padding: 20px;
+        border: none;
+    }
+    
+    .modal-body {
+        padding: 30px;
+    }
+    
+    /* Mejoras en formularios */
+    .form-control {
+        border-radius: 10px;
+        border: 2px solid #e9ecef;
+        padding: 12px 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+    
+    /* Animaciones para elementos que aparecen */
+    .fade-in {
+        animation: fadeIn 0.6s ease-in;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 `;
 document.head.appendChild(style);

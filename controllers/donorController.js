@@ -8,9 +8,9 @@ const donorController = {
       const { id } = req.params;
       const { AssignmentID, HospitalID, Notes } = req.body;
 
-      // Buscar el donador con su información de usuario
+      // Buscar el donador por UserID (ya que el frontend envía UserID)
       const donor = await Donor.findOne({
-        where: { DonorID: id },
+        where: { UserID: id },
         include: [
           {
             model: User,
@@ -40,7 +40,7 @@ const donorController = {
         assignment = await DonorReceiverAssignment.findOne({
           where: { 
             AssignmentID,
-            DonorID: id,
+            DonorID: donor.DonorID,
             Status: 'confirmed'
           },
           include: [
@@ -88,7 +88,7 @@ const donorController = {
 
       // Crear registro en DonationHistory
       const donationHistoryRecord = await DonationHistory.create({
-        DonorID: id,
+        DonorID: donor.DonorID,
         ReceiverID: assignment ? assignment.ReceiverID : null,
         HospitalID: parseInt(HospitalID),
         DonationDate: currentDate,
@@ -119,7 +119,7 @@ const donorController = {
       // Crear nueva asignación si no se proporcionó AssignmentID
       if (!AssignmentID && HospitalID) {
         await DonorReceiverAssignment.create({
-          DonorID: id,
+          DonorID: donor.DonorID,
           ReceiverID: null, // Asignación general sin receptor específico
           HospitalID: parseInt(HospitalID),
           Status: 'completed',
@@ -172,7 +172,7 @@ const donorController = {
             model: User,
             as: 'User',
             where: { IsActive: true },
-            attributes: ['FirstName', 'LastName', 'BloodType', 'Email', 'PhoneNumber']
+            attributes: ['UserID', 'FirstName', 'LastName', 'BloodType', 'Email', 'PhoneNumber']
           }
         ],
         order: [['CreatedAt', 'DESC']]
@@ -247,9 +247,20 @@ const donorController = {
     try {
       const { id } = req.params;
       
+      // Primero buscar el donador por UserID
+      const donor = await Donor.findOne({
+        where: { UserID: id }
+      });
+
+      if (!donor) {
+        return res.status(404).json({
+          message: 'Donador no encontrado'
+        });
+      }
+      
       const donationHistory = await DonationHistory.findAll({
         where: { 
-          DonorID: id,
+          DonorID: donor.DonorID,
           Status: 'completed'
         },
         include: [
@@ -305,7 +316,7 @@ const donorController = {
       const { id } = req.params;
       
       const donor = await Donor.findOne({
-        where: { DonorID: id },
+        where: { UserID: id },
         include: [
           {
             model: User,
@@ -324,7 +335,7 @@ const donorController = {
       // Contar donaciones totales
       const totalDonations = await DonationHistory.count({
         where: { 
-          DonorID: id,
+          DonorID: donor.DonorID,
           Status: 'completed'
         }
       });
@@ -333,7 +344,7 @@ const donorController = {
       const currentYear = new Date().getFullYear();
       const donationsThisYear = await DonationHistory.count({
         where: { 
-          DonorID: id,
+          DonorID: donor.DonorID,
           Status: 'completed',
           DonationDate: {
             [require('sequelize').Op.gte]: new Date(currentYear, 0, 1)
