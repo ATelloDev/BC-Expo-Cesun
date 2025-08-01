@@ -35,13 +35,11 @@ body::before {
 
 /* Header */
 .header {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: rgb(228, 0, 0);
     border-bottom: 3px solid #dc143c;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    padding: 1rem 0;
+    position: relative;
+    overflow: hidden;
 }
 
 .header-content {
@@ -54,7 +52,7 @@ body::before {
 }
 
 .header h1 {
-    color: #000;
+    color: #ffffff;
     font-size: 28px;
     font-weight: 700;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -67,13 +65,13 @@ body::before {
 }
 
 .user-info span {
-    color: #000;
+    color: #ffffff;
     font-weight: 600;
     font-size: 16px;
 }
 
 .logout-btn {
-    background: linear-gradient(135deg, #dc143c 0%, #ff1744 100%);
+    background: linear-gradient(135deg, #690418 0%, #db0303 100%);
     color: white;
     border: none;
     padding: 10px 20px;
